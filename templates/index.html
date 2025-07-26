@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🏡 Banglore Home Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🏡 Banglore Home Price Predictor</h1>
+        <form action="/predict" method="POST">
+            <div class="form-group">
+                <label for="area">Area (in sqft):</label>
+                <input type="text" id="area" name="area" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bhk">BHK:</label>
+                <select name="bhk" id="bhk" required>
+                    <option value="1">1 BHK</option>
+                    <option value="2">2 BHK</option>
+                    <option value="3">3 BHK</option>
+                    <option value="4">4 BHK</option>
+                    <option value="5">5 BHK</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <select name="location" id="location" required>
+                    {% for loc in locations %}
+                        <option value="{{ loc }}">{{ loc.title() }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Predict Price">
+            </div>
+
+            {% if result %}
+                <div class="result">💰 Estimated Price: ₹ {{ result }} Lakhs</div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
